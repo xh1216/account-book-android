@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <TextView
+        style="@style/TextAppearance.AppCompat.Large"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:text="@string/app_name" />
+    <TextView
+        android:id="@+id/date_text"
+        style="@style/TextAppearance.AppCompat.Body2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center" />
+    <TextView
+        android:id="@+id/total_text"
+        style="@style/TextAppearance.AppCompat.Body2"
+        android:textSize="18sp"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="30dp"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:background="@drawable/rounded_edges"
+        android:backgroundTint="#B9DCA8"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp">
+        <TextView
+            android:id="@+id/income_text"
+            style="@style/TextAppearance.AppCompat.Body2"
+            android:layout_width="120dp"
+            android:layout_height="35dp"
+            android:gravity="center"
+            android:background="@drawable/rounded_edges" />
+        <TextView
+            android:id="@+id/expenses_text"
+            style="@style/TextAppearance.AppCompat.Body2"
+            android:layout_width="120dp"
+            android:layout_height="35dp"
+            android:gravity="center"
+            android:background="@drawable/rounded_edges"
+            android:backgroundTint="#FFB5B5"
+            android:layout_marginStart="60dp" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/add_record_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="200dp"
+        android:text="enter record!" />
+</LinearLayout>

@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.llollox.androidtoggleswitch.widgets.ToggleSwitch;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -22,6 +24,7 @@ public class RecordInputFragment extends Fragment {
     private static final int REQUEST_DATE = 0;
 
     private Record mRecord;
+    private ToggleSwitch mTypeSwitch;
     private EditText mDateField;
     private EditText mAmountField;
     private EditText mCategoryField;
@@ -48,7 +51,10 @@ public class RecordInputFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.activity_record_input, container, false);
+        View v = inflater.inflate(R.layout.fragment_record_input, container, false);
+
+        mTypeSwitch = v.findViewById(R.id.type_switch);
+        mTypeSwitch.setCheckedPosition(mRecord.isIncome() ? 1 : 0);
 
         mDateField = v.findViewById(R.id.date_field);
         updateDate();
@@ -75,6 +81,9 @@ public class RecordInputFragment extends Fragment {
         mConfirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                int pos = mTypeSwitch.getCheckedPosition();
+                System.out.println(pos);
+                mRecord.setIncome(pos != 0 ? true : false);
                 mRecord.setAmount(Integer.parseInt(mAmountField.getText().toString()));
                 RecordList.get(getActivity()).addRecord(mRecord);
                 getActivity().onBackPressed();

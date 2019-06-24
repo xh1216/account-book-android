@@ -3,11 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/rounded_edges"
-    android:backgroundTint="@color/colorWhite">
+    android:background="@drawable/rounded_edges">
     <TextView
         android:id="@+id/date_text"
         style="@style/TextAppearance.AppCompat.Body2"
+        android:textSize="18sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"

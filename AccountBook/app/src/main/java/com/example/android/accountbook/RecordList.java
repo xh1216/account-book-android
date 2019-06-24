@@ -10,8 +10,11 @@ import com.example.android.accountbook.database.DbSchema;
 import com.example.android.accountbook.database.RecordCursorWrapper;
 import com.example.android.accountbook.database.DbSchema.RecordTable;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 
 public class RecordList {
@@ -60,6 +63,44 @@ public class RecordList {
             cursor.close();
         }
 
+        return records;
+    }
+
+    public List<Record> getThisMonthRecords() {
+        List<Record> records = new ArrayList<>();
+
+        RecordCursorWrapper cursor = queryRecords(
+                "strftime('%m'," + RecordTable.Cols.DATE + ") = strftime('%m', 'now')",
+                null);
+
+        try {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                records.add(cursor.getRecord());
+                cursor.moveToNext();
+            }
+        } finally {
+            cursor.close();
+        }
+        return records;
+    }
+
+    public List<Record> getRecordsByDate(Date date) {
+        List<Record> records = new ArrayList<>();
+        String dateString = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(date);
+        RecordCursorWrapper cursor = queryRecords(
+                RecordTable.Cols.DATE + " = ?",
+                new String[] { dateString });
+
+        try {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                records.add(cursor.getRecord());
+                cursor.moveToNext();
+            }
+        } finally {
+            cursor.close();
+        }
         return records;
     }
 
@@ -123,7 +164,7 @@ public class RecordList {
     private static ContentValues getContentValues(Record record) {
         ContentValues values = new ContentValues();
         values.put(RecordTable.Cols.UUID, record.getId().toString());
-        values.put(RecordTable.Cols.DATE, record.getDate().getTime());
+        values.put(RecordTable.Cols.DATE, new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(record.getDate()));
         values.put(RecordTable.Cols.AMOUNT, record.getAmount());
         values.put(RecordTable.Cols.CATEGORY_ID, record.getCategory().getId().toString());
         values.put(RecordTable.Cols.MEMO, record.getMemo());

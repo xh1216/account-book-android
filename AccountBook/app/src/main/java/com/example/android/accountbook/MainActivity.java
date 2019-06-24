@@ -63,8 +63,4 @@ public class MainActivity extends AppCompatActivity {
         }
         return false;
     }
-
-    public static Context getContext() {
-        return getContext();
-    }
 }

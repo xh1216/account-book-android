@@ -2,32 +2,43 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_margin="10dp">
+    android:layout_height="match_parent" >
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/rounded_edges">
         <TextView
+            style="@style/TextAppearance.AppCompat.Body2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
+            android:textSize="18dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="5dp"
             android:text="@string/input_date_label" />
         <Button
             android:id="@+id/date_button"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"/>
-    </LinearLayout>
+            style="@style/TextAppearance.AppCompat.Body2"
+            android:textColor="@color/colorBlack"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="15dp"
+            android:background="@drawable/rounded_edges"
+            android:backgroundTint="@color/colorWhite"/>
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <TextView
+            style="@style/TextAppearance.AppCompat.Body2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
+            android:textSize="18dp"
             android:text="@string/input_amount_label" />
         <EditText
             android:id="@+id/amount_field"
@@ -41,9 +52,10 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <TextView
+            style="@style/TextAppearance.AppCompat.Body2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
+            android:textSize="18dp"
             android:text="@string/input_category_label" />
         <Button
             android:id="@+id/category_button"
@@ -56,9 +68,10 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <TextView
+            style="@style/TextAppearance.AppCompat.Body2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
+            android:textSize="18dp"
             android:text="@string/input_memo_label" />
         <EditText
             android:id="@+id/memo_field"
@@ -68,7 +81,10 @@
 
     <Button
         android:id="@+id/confirm_button"
-        android:layout_width="50dp"
-        android:layout_height="wrap_content"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="200dp"
+        android:text="Add Record"/>
 
 </LinearLayout>

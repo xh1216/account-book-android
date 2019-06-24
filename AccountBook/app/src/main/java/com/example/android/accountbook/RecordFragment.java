@@ -63,20 +63,14 @@ public class RecordFragment extends Fragment {
         String dayOfWeek = new SimpleDateFormat("EE", Locale.ENGLISH).format(new Date());
         mDateTextView.setText(date + " (" + dayOfWeek + ") ");
 
-        List<Record> mRecords = RecordList.get(getActivity()).getRecords();
+        List<Record> mRecords = RecordList.get(getActivity()).getThisMonthRecords();
         int income = 0;
         int exp = 0;
-        int currMonth = Integer.parseInt(new SimpleDateFormat("MM", Locale.getDefault()).format(new Date()));
         for (Record rec: mRecords) {
-            int recMonth = Integer.parseInt(new SimpleDateFormat("MM", Locale.getDefault()).format(rec.getDate()));
-            if (currMonth == recMonth) {
-                if (rec.isIncome()) {
-                    income += rec.getAmount();
-
-                } else {
-                    exp += rec.getAmount();
-
-                }
+            if (rec.isIncome()) {
+                income += rec.getAmount();
+            } else {
+                exp += rec.getAmount();
             }
         }
         mIncomeTextView.setText(getString(R.string.income_label, income));

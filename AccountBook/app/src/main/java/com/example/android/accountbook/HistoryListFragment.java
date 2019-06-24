@@ -11,12 +11,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 
 public class HistoryListFragment extends Fragment {
 
-    private RecyclerView mRecordRecyclerView;
-    private HistoryAdapter mAdapter;
+    private static final String EXTRA_DATE = "com.example.android.accountbook.date";
+
+    private RecyclerView mHistoryListRecyclerView;
+    private HistoryListAdapter mAdapter;
 
     @Nullable
     @Override
@@ -24,8 +32,8 @@ public class HistoryListFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_history_list, container, false);
 
-        mRecordRecyclerView = view.findViewById(R.id.history_recycler_view);
-        mRecordRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mHistoryListRecyclerView = view.findViewById(R.id.history_list_recycler_view);
+        mHistoryListRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         updateUI();
 
@@ -35,57 +43,78 @@ public class HistoryListFragment extends Fragment {
     private void updateUI() {
         RecordList recordList = RecordList.get(getActivity());
         List<Record> records = recordList.getRecords();
-
-        mAdapter = new HistoryAdapter(records);
-        mRecordRecyclerView.setAdapter(mAdapter);
+        HashSet<Date> dateSet = new HashSet<>();
+        for (Record rec: records) {
+            dateSet.add(rec.getDate());
+        }
+        System.out.println(dateSet);
+        List<Date> dateList = new ArrayList<>(dateSet);
+        Collections.sort(dateList, Collections.<Date>reverseOrder());
+        mAdapter = new HistoryListAdapter(dateList);
+        mHistoryListRecyclerView.setAdapter(mAdapter);
     }
 
-    private class HistoryHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    private class HistoryListHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private TextView mAmountTextView;
-        private Record mRecord;
+        private TextView mDateTextView;
+        private Date mDate;
 
-        public HistoryHolder(LayoutInflater inflater, ViewGroup parent) {
+        public HistoryListHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.list_item_history, parent, false));
             mAmountTextView = itemView.findViewById(R.id.history_record_amount);
+            mDateTextView = itemView.findViewById(R.id.history_record_date);
             itemView.setOnClickListener(this);
         }
 
-        public void bind(Record record) {
-            mRecord = record;
-            mAmountTextView.setText(String.valueOf(mRecord.getAmount()));
+        public void bind(Date date) {
+            mDate = date;
+            int totalAmount = 0;
+            List<Record> recList = RecordList.get(getActivity()).getRecordsByDate(mDate);
+            for (Record rec : recList) {
+                if (rec.isIncome()) {
+                    totalAmount += rec.getAmount();
+                } else {
+                    totalAmount -= rec.getAmount();
+                }
+            }
+            mAmountTextView.setText(String.valueOf(totalAmount));
+            mDateTextView.setText(new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(date));
         }
 
         @Override
         public void onClick(View view) {
-            //go to history activity
+            //go to history activity and pass this date
+            Intent intent = new Intent(getActivity(), HistoryActivity.class);
+            intent.putExtra(EXTRA_DATE, mDate.getTime());
+            startActivity(intent);
         }
     }
 
-    private class HistoryAdapter extends RecyclerView.Adapter<HistoryHolder> {
+    private class HistoryListAdapter extends RecyclerView.Adapter<HistoryListHolder> {
 
-        private List<Record> mRecords;
+        private List<Date> mDates;
 
-        public HistoryAdapter(List<Record> records) {
-            mRecords = records;
+        public HistoryListAdapter(List<Date> dates) {
+            mDates = dates;
         }
 
         @Override
-        public HistoryHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public HistoryListHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
 
-            return new HistoryHolder(layoutInflater, parent);
+            return new HistoryListHolder(layoutInflater, parent);
         }
 
         @Override
-        public void onBindViewHolder(HistoryHolder holder, int position) {
-            Record record = mRecords.get(position);
-            holder.bind(record);
+        public void onBindViewHolder(HistoryListHolder holder, int position) {
+            Date date = mDates.get(position);
+            holder.bind(date);
         }
 
         @Override
         public int getItemCount() {
-            return mRecords.size();
+            return mDates.size();
         }
     }
 }

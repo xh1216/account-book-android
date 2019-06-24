@@ -57,7 +57,7 @@ public class RecordInputActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onBackPressed() {
+    public void onBackPressed() {       //exit app also need to remove
         RecordList.get(RecordInputActivity.this).removeRecord(mRecord);
         finish();
     }

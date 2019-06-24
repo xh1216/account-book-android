@@ -2,14 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
-    <!--<TextView-->
-        <!--style="@style/TextAppearance.AppCompat.Large"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginTop="20dp"-->
-        <!--android:gravity="center"-->
-        <!--android:text="@string/app_name" />-->
+    android:orientation="vertical"
+    android:background="@drawable/rounded_edges"
+    android:backgroundTint="@color/colorWhite">
     <TextView
         android:id="@+id/date_text"
         style="@style/TextAppearance.AppCompat.Body2"
@@ -20,9 +15,9 @@
     <TextView
         android:id="@+id/total_text"
         style="@style/TextAppearance.AppCompat.Body2"
-        android:textSize="18sp"
+        android:textSize="20sp"
         android:layout_width="300dp"
-        android:layout_height="40dp"
+        android:layout_height="45dp"
         android:layout_marginTop="30dp"
         android:layout_gravity="center_horizontal"
         android:gravity="center"
@@ -34,23 +29,24 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:orientation="horizontal"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="25dp">
         <TextView
             android:id="@+id/income_text"
             style="@style/TextAppearance.AppCompat.Body2"
-            android:layout_width="120dp"
-            android:layout_height="35dp"
+            android:layout_width="135dp"
+            android:layout_height="40dp"
             android:gravity="center"
-            android:background="@drawable/rounded_edges" />
+            android:background="@drawable/rounded_edges"
+            android:backgroundTint="#B3E4EF"/>
         <TextView
             android:id="@+id/expenses_text"
             style="@style/TextAppearance.AppCompat.Body2"
-            android:layout_width="120dp"
-            android:layout_height="35dp"
+            android:layout_width="135dp"
+            android:layout_height="40dp"
             android:gravity="center"
             android:background="@drawable/rounded_edges"
             android:backgroundTint="#FFB5B5"
-            android:layout_marginStart="60dp" />
+            android:layout_marginStart="30dp" />
     </LinearLayout>
 
     <Button
@@ -58,6 +54,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="150dp"
         android:text="enter record!" />
 </LinearLayout>

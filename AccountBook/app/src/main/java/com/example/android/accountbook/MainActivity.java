@@ -21,10 +21,10 @@ public class MainActivity extends AppCompatActivity {
 
             switch (item.getItemId()) {
                 case R.id.navigation_record:
-                    fragment = new RecordFragment();
+                    fragment = new RecordActivity().createFragment();
                     break;
                 case R.id.navigation_history:
-                    fragment = new HistoryListFragment();
+                    fragment = new HistoryListActivity().createFragment();
                     break;
 //                case R.id.navigation_setting:
 //                    mTextMessage.setText(R.string.title_notifications);

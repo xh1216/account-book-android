@@ -21,7 +21,7 @@ public class Record {
         mDate = new Date();
         mAmount = 0;
         mCategory = new Category();
-        mMemo = "abc";
+        mMemo = "";
         isIncome = false;
     }
 

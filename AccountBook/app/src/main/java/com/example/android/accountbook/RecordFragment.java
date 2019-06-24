@@ -9,12 +9,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
 
@@ -43,8 +39,8 @@ public class RecordFragment extends Fragment {
             public void onClick(View v) {
                 Record record = new Record();
                 RecordList.get(getActivity()).addRecord(record);
-                Intent intent = new Intent(getActivity(), RecordInputActivity.class);
-                intent.putExtra(EXTRA_RECORD_ID, record.getId());
+                Intent intent = RecordInputActivity.newIntent(getActivity(), record.getId());
+                //intent.putExtra(EXTRA_RECORD_ID, record.getId());
                 startActivity(intent);
             }
         });

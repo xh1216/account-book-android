@@ -19,20 +19,28 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".RecordActivity"
+            android:label="History">
+        </activity>
+        <activity
             android:name=".RecordInputActivity"
             android:label="Enter Record"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName=".RecordActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value=".RecordActivity" />
         </activity>
         <activity
             android:name=".HistoryActivity"
             android:label="History"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName=".HistoryListActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value=".HistoryListActivity" />
+        </activity>
+        <activity
+            android:name=".HistoryListActivity"
+            android:label="History">
         </activity>
     </application>
 

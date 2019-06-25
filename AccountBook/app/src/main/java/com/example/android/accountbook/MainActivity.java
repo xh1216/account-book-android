@@ -8,9 +8,12 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.annotation.NonNull;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
+
+    BottomNavigationView mBottomNavigationView;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -38,8 +41,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        BottomNavigationView navView = findViewById(R.id.bottom_nav_view);
-        navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        mBottomNavigationView = findViewById(R.id.bottom_nav_view);
+        mBottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         FragmentManager fm = getSupportFragmentManager();   //ensure stay in same fragment after rotate
         Fragment fragment = fm.findFragmentById(R.id.main_container);

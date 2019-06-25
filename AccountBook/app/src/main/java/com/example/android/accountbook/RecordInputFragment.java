@@ -11,10 +11,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.llollox.androidtoggleswitch.widgets.ToggleSwitch;
+import com.savvyapps.togglebuttonlayout.Toggle;
+import com.savvyapps.togglebuttonlayout.ToggleButtonLayout;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
 
@@ -24,7 +26,7 @@ public class RecordInputFragment extends Fragment {
     private static final int REQUEST_DATE = 0;
 
     private Record mRecord;
-    private ToggleSwitch mTypeSwitch;
+    private ToggleButtonLayout mToggleButtonLayout;
     private EditText mDateField;
     private EditText mAmountField;
     private EditText mCategoryField;
@@ -53,8 +55,8 @@ public class RecordInputFragment extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_record_input, container, false);
 
-        mTypeSwitch = v.findViewById(R.id.type_switch);
-        mTypeSwitch.setCheckedPosition(mRecord.isIncome() ? 1 : 0);
+        mToggleButtonLayout = v.findViewById(R.id.toggle_button_layout);
+        mToggleButtonLayout.setToggled(R.id.toggle_expense, true);
 
         mDateField = v.findViewById(R.id.date_field);
         updateDate();
@@ -81,15 +83,23 @@ public class RecordInputFragment extends Fragment {
         mConfirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int pos = mTypeSwitch.getCheckedPosition();
-                System.out.println(pos);
-                mRecord.setIncome(pos != 0 ? true : false);
+                List<Toggle> toggleList =  mToggleButtonLayout.selectedToggles();
+                System.out.println(toggleList.get(0).getTitle());
+                if (toggleList.get(0).getId() == R.id.toggle_expense) {
+                    mRecord.setIncome(false);
+                } else {
+                    mRecord.setIncome(true);
+                }
                 mRecord.setAmount(Integer.parseInt(mAmountField.getText().toString()));
                 RecordList.get(getActivity()).addRecord(mRecord);
                 getActivity().onBackPressed();
             }
         });
 
+        RecordInputActivity activity = (RecordInputActivity) getActivity();
+        if (activity != null) {
+            activity.hideBottomBar(true);
+        }
         return v;
     }
 
@@ -104,6 +114,15 @@ public class RecordInputFragment extends Fragment {
                     .getSerializableExtra(DatePickerFragment.EXTRA_DATE);
             mRecord.setDate(date);
             updateDate();
+        }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        RecordInputActivity activity = (RecordInputActivity) getActivity();
+        if (activity != null) {
+            activity.hideBottomBar(true);
         }
     }
 

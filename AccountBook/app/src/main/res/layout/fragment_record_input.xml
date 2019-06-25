@@ -5,20 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/rounded_edges">
-    <com.llollox.androidtoggleswitch.widgets.ToggleSwitch
-        android:id="@+id/type_switch"
+    <com.savvyapps.togglebuttonlayout.ToggleButtonLayout
+        android:id="@+id/toggle_button_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_gravity="center_horizontal"
         android:layout_marginTop="10dp"
-        app:textToggleLeft="expense"
-        app:textToggleRight="income"
-        app:toggleWidth="90dp"
-        app:checkedBackgroundColor="@color/colorAccent"
-        app:uncheckedBackgroundColor="@color/colorWhite"
-        app:borderWidth="1dp"
-        app:uncheckedBorderColor="@color/colorAccent"
-        app:checkedBorderColor="@color/colorAccent" />
+        app:customLayout="@layout/view_toggle_button"
+        app:allowDeselection="false"
+        app:selectedColor="@color/colorAccent"
+        app:dividerColor="@color/colorAccent"
+        app:menu="@menu/toggle_button" />
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"

@@ -21,4 +21,9 @@ public class RecordInputActivity extends SingleFragmentActivity {
         UUID recordId = (UUID) getIntent().getSerializableExtra(EXTRA_RECORD_ID);
         return RecordInputFragment.newInstance(recordId);
     }
+
+    @Override
+    public Context getApplicationContext() {
+        return super.getApplicationContext();
+    }
 }

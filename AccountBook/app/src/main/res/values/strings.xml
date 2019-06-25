@@ -11,4 +11,5 @@
     <string name="input_category_label">Category</string>
     <string name="input_memo_label">Memo</string>
     <string name="date_picker_title">Date:</string>
+    <string name="remove_toast">The record has been removed.</string>
 </resources>

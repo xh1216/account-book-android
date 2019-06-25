@@ -2,6 +2,7 @@ package com.example.android.accountbook;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -22,12 +23,11 @@ import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
 
-public class RecordInputFragment extends Fragment {
+public class RecordEditFragment extends Fragment {
+
     private static final String ARG_RECORD_ID = "record_id";
     private static final String DIALOG_DATE = "dialog_date";
-    private static final String CATEGORY_ID = "category_id";
     private static final int REQUEST_DATE = 0;
-    private static final int REQUEST_CATEGORY = 1;
 
     private Record mRecord;
     private ToggleButtonLayout mToggleButtonLayout;
@@ -38,11 +38,11 @@ public class RecordInputFragment extends Fragment {
     private Button mConfirmButton;
     private Button mRemoveButton;
 
-    public static RecordInputFragment newInstance(UUID recordId) {
+    public static RecordEditFragment newInstance(UUID recordId) {
         Bundle args = new Bundle();
         args.putSerializable(ARG_RECORD_ID, recordId);
 
-        RecordInputFragment fragment = new RecordInputFragment();
+        RecordEditFragment fragment = new RecordEditFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -52,7 +52,6 @@ public class RecordInputFragment extends Fragment {
         super.onCreate(savedInstanceState);
         UUID recordId = (UUID) getArguments().getSerializable(ARG_RECORD_ID);
         mRecord = RecordList.get(getActivity()).getRecord(recordId);
-        RecordList.get(getActivity()).removeRecord(mRecord);
     }
 
     @Override
@@ -70,7 +69,7 @@ public class RecordInputFragment extends Fragment {
             public void onClick(View v) {
                 FragmentManager manager = getFragmentManager();
                 DatePickerFragment dialog = DatePickerFragment.newInstance(mRecord.getDate());
-                dialog.setTargetFragment(RecordInputFragment.this, REQUEST_DATE);
+                dialog.setTargetFragment(RecordEditFragment.this, REQUEST_DATE);
                 dialog.show(manager, DIALOG_DATE);
             }
         });
@@ -83,31 +82,41 @@ public class RecordInputFragment extends Fragment {
 
         mCategoryField = v.findViewById(R.id.category_field);
         mCategoryField.setText(mRecord.getCategory().getName());
-        mCategoryField.setOnClickListener(new View.OnClickListener() {
+
+        mRemoveButton = v.findViewById(R.id.remove_button);
+        mRemoveButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public  void onClick(View v) {
-                FragmentManager manager = getFragmentManager();
-                CategoryDialogFragment dialog = CategoryDialogFragment.newInstance(mRecord.getCategory().getId());
-                dialog.setTargetFragment(RecordInputFragment.this, REQUEST_CATEGORY);
-                dialog.show(manager, CATEGORY_ID);
+            public void onClick(View v) {
+                new AlertDialog.Builder(getActivity())
+                        .setTitle("Remove record")
+                        .setMessage("Are you sure you want to remove this record?")
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                RecordList.get(getActivity()).removeRecord(mRecord);
+                                Toast.makeText(getActivity(),
+                                        R.string.remove_toast,
+                                        Toast.LENGTH_SHORT).show();
+                                getActivity().onBackPressed();
+                            }
+                        })
+                        .setNegativeButton(android.R.string.cancel, null)
+                        .show();
             }
         });
 
-        mRemoveButton = v.findViewById(R.id.remove_button);
-        mRemoveButton.setVisibility(View.GONE);
-
         mConfirmButton = v.findViewById(R.id.confirm_button);
+        mConfirmButton.setText("Update Record");
         mConfirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (Integer.parseInt(mAmountField.getText().toString()) <= 0) {
                     new AlertDialog.Builder(getActivity())
-                            .setTitle("Amount entry")
+                            .setTitle("Amount")
                             .setMessage("Enter amount more than 0")
                             .setNegativeButton(android.R.string.ok, null)
                             .show();
                 } else {
-                    List<Toggle> toggleList =  mToggleButtonLayout.selectedToggles();
+                    List<Toggle> toggleList = mToggleButtonLayout.selectedToggles();
                     System.out.println(toggleList.get(0).getTitle());
                     if (toggleList.get(0).getId() == R.id.toggle_expense) {
                         mRecord.setIncome(false);
@@ -116,13 +125,13 @@ public class RecordInputFragment extends Fragment {
                     }
                     mRecord.setAmount(Integer.parseInt(mAmountField.getText().toString()));
                     mRecord.setMemo(mMemoField.getText().toString());
-                    RecordList.get(getActivity()).addRecord(mRecord);
+                    RecordList.get(getActivity()).updateRecord(mRecord);
                     getActivity().onBackPressed();
                 }
             }
         });
 
-        RecordInputActivity activity = (RecordInputActivity) getActivity();
+        RecordEditActivity activity = (RecordEditActivity) getActivity();
         if (activity != null) {
             activity.hideBottomBar(true);
         }
@@ -146,7 +155,7 @@ public class RecordInputFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        RecordInputActivity activity = (RecordInputActivity) getActivity();
+        RecordEditActivity activity = (RecordEditActivity) getActivity();
         if (activity != null) {
             activity.hideBottomBar(true);
         }

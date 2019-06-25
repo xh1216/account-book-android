@@ -41,6 +41,12 @@ public class CategoryList {
         mDatabase.insert(CategoryTable.NAME, null, values);
     }
 
+    public void removeRecord(Category c) {
+        mDatabase.delete(CategoryTable.NAME,
+                CategoryTable.Cols.UUID + " = ?",
+                new String[] { c.getId().toString() });
+    }
+
     public List<Category> getCategories() {
         List<Category> categories = new ArrayList<>();
 
@@ -105,6 +111,7 @@ public class CategoryList {
         values.put(CategoryTable.Cols.UUID, category.getId().toString());
         values.put(CategoryTable.Cols.CAT_NAME, category.getName());
         values.put(CategoryTable.Cols.ICON, category.getIcon());
+        values.put(CategoryTable.Cols.IS_INCOME, category.isIncome() ? 1 : 0);
 
         return values;
     }

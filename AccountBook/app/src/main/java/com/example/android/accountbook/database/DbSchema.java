@@ -20,6 +20,7 @@ public class DbSchema {
             public static final String UUID = "uuid";
             public static final String CAT_NAME = "cat_name";
             public static final String ICON = "icon";
+            public static final String IS_INCOME = "is_income";
         }
     }
 }

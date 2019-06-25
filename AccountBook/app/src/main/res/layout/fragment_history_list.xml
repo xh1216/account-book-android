@@ -11,6 +11,15 @@
         android:layout_marginTop="20dp"
         android:gravity="center"
         android:text="History" />
+    <TextView
+        android:id="@+id/empty_record_text"
+        style="@style/TextAppearance.AppCompat.Body2"
+        android:textSize="16sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:gravity="center"
+        android:text="No record yet." />
     <android.support.v7.widget.RecyclerView
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/history_list_recycler_view"

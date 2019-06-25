@@ -6,6 +6,7 @@ public class Category {
     private UUID mId;
     private String mName;
     private String mIcon;
+    private Boolean isIncome;
 
     public Category() {
         this(UUID.randomUUID());
@@ -15,6 +16,7 @@ public class Category {
         mId = id;
         mName = "";
         mIcon = "";
+        isIncome = false;
     }
 
     public UUID getId() {
@@ -35,5 +37,13 @@ public class Category {
 
     public void setIcon(String icon) {
         mIcon = icon;
+    }
+
+    public Boolean isIncome() {
+        return isIncome;
+    }
+
+    public void setIncome(Boolean income) {
+        isIncome = income;
     }
 }

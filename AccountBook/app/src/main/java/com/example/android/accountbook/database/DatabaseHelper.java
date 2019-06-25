@@ -24,15 +24,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 RecordTable.Cols.AMOUNT + ", " +
                 RecordTable.Cols.CATEGORY_ID + ", " +
                 RecordTable.Cols.MEMO + ", " +
-                RecordTable.Cols.IS_INCOME + ", " +
-                " FOREIGN KEY (" + RecordTable.Cols.CATEGORY_ID + ") REFERENCES " + CategoryTable.NAME + "(" + CategoryTable.Cols.UUID +
-                ")) ");
+                RecordTable.Cols.IS_INCOME +
+                ") ");
 
         db.execSQL("create table " + CategoryTable.NAME + "(" +
                 " _id integer primary key autoincrement, " +
                 CategoryTable.Cols.UUID + ", " +
                 CategoryTable.Cols.CAT_NAME + ", " +
-                CategoryTable.Cols.ICON +
+                CategoryTable.Cols.ICON + ", " +
+                CategoryTable.Cols.IS_INCOME +
                 ") ");
     }
 

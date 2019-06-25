@@ -42,6 +42,14 @@
             android:name=".HistoryListActivity"
             android:label="History">
         </activity>
+        <activity
+            android:name=".RecordEditActivity"
+            android:label="Edit Record"
+            android:parentActivityName=".HistoryActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".HistoryActivity" />
+        </activity>
     </application>
 
 </manifest>

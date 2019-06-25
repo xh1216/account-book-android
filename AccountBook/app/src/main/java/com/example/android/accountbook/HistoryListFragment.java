@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -23,6 +25,7 @@ public class HistoryListFragment extends Fragment {
 
     private static final String EXTRA_DATE = "com.example.android.accountbook.date";
 
+    private TextView mEmptyRecordText;
     private RecyclerView mHistoryListRecyclerView;
     private HistoryListAdapter mAdapter;
 
@@ -32,6 +35,8 @@ public class HistoryListFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_history_list, container, false);
 
+        mEmptyRecordText = view.findViewById(R.id.empty_record_text);
+        mEmptyRecordText.setVisibility(View.GONE);
         mHistoryListRecyclerView = view.findViewById(R.id.history_list_recycler_view);
         mHistoryListRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
@@ -43,11 +48,13 @@ public class HistoryListFragment extends Fragment {
     private void updateUI() {
         RecordList recordList = RecordList.get(getActivity());
         List<Record> records = recordList.getRecords();
+        if (records.isEmpty()) {
+            mEmptyRecordText.setVisibility(View.VISIBLE);
+        }
         HashSet<Date> dateSet = new HashSet<>();
         for (Record rec: records) {
             dateSet.add(rec.getDate());
         }
-        System.out.println(dateSet);
         List<Date> dateList = new ArrayList<>(dateSet);
         Collections.sort(dateList, Collections.<Date>reverseOrder());
         mAdapter = new HistoryListAdapter(dateList);
@@ -116,5 +123,11 @@ public class HistoryListFragment extends Fragment {
         public int getItemCount() {
             return mDates.size();
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateUI();
     }
 }

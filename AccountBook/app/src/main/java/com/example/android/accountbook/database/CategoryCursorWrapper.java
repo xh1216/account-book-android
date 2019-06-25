@@ -15,10 +15,12 @@ public class CategoryCursorWrapper extends CursorWrapper {
         String uuidString = getString(getColumnIndex(CategoryTable.Cols.UUID));
         String catName = getString(getColumnIndex(CategoryTable.Cols.CAT_NAME));
         String icon = getString(getColumnIndex(CategoryTable.Cols.ICON));
+        int isIncome = getInt(getColumnIndex(CategoryTable.Cols.IS_INCOME));
 
         Category category = new Category(UUID.fromString(uuidString));
         category.setName(catName);
         category.setIcon(icon);
+        category.setIncome(isIncome != 0);
         return category;
     }
 }

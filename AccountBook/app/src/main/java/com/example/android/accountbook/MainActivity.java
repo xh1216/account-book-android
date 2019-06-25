@@ -11,6 +11,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
     BottomNavigationView mBottomNavigationView;
@@ -44,6 +47,8 @@ public class MainActivity extends AppCompatActivity {
         mBottomNavigationView = findViewById(R.id.bottom_nav_view);
         mBottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
+//        initCategoryData();
+
         FragmentManager fm = getSupportFragmentManager();   //ensure stay in same fragment after rotate
         Fragment fragment = fm.findFragmentById(R.id.main_container);
 
@@ -65,5 +70,26 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         return false;
+    }
+
+    private void initCategoryData() {
+        String[] expCatName = {"food", "transport", "entertainment"};
+        String[] incomeCatName = {"salary", "pocket money"};
+
+        for (int i = 0; i < expCatName.length; i++) {
+            Category cat = new Category();
+            cat.setName(expCatName[i]);
+            cat.setIcon("exp_cat" + i + ".png");
+            cat.setIncome(false);
+            CategoryList.get(MainActivity.this).addCategory(cat);
+        }
+
+        for (int i = 0; i < incomeCatName.length; i++) {
+            Category cat = new Category();
+            cat.setName(incomeCatName[i]);
+            cat.setIcon("income_cat" + i + ".png");
+            cat.setIncome(true);
+            CategoryList.get(MainActivity.this).addCategory(cat);
+        }
     }
 }

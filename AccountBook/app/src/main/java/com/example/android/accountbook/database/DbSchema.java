@@ -23,4 +23,12 @@ public class DbSchema {
             public static final String IS_INCOME = "is_income";
         }
     }
+
+    public static final class SettingTable {
+        public static final String NAME = "setting";
+
+        public static final class Cols {
+            public static final String DATE_FORMAT = "date_format";
+        }
+    }
 }

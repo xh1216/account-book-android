@@ -57,6 +57,7 @@ public class HistoryListFragment extends Fragment {
         }
         List<Date> dateList = new ArrayList<>(dateSet);
         Collections.sort(dateList, Collections.<Date>reverseOrder());
+
         mAdapter = new HistoryListAdapter(dateList);
         mHistoryListRecyclerView.setAdapter(mAdapter);
     }
@@ -86,12 +87,12 @@ public class HistoryListFragment extends Fragment {
                 }
             }
             mAmountTextView.setText(String.valueOf(totalAmount));
-            mDateTextView.setText(new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(date));
+            String dateFormat = Setting.get(getActivity()).getDateFormat();
+            mDateTextView.setText(new SimpleDateFormat(dateFormat, Locale.getDefault()).format(date));
         }
 
         @Override
         public void onClick(View view) {
-            //go to history activity and pass this date
             Intent intent = new Intent(getActivity(), HistoryActivity.class);
             intent.putExtra(EXTRA_DATE, mDate.getTime());
             startActivity(intent);

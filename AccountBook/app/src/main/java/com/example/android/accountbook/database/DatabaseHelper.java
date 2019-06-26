@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.example.android.accountbook.database.DbSchema.CategoryTable;
 import com.example.android.accountbook.database.DbSchema.RecordTable;
+import com.example.android.accountbook.database.DbSchema.SettingTable;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static final int VERSION = 1;
@@ -33,6 +34,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 CategoryTable.Cols.CAT_NAME + ", " +
                 CategoryTable.Cols.ICON + ", " +
                 CategoryTable.Cols.IS_INCOME +
+                ") ");
+
+        db.execSQL("create table " + SettingTable.NAME + "(" +
+                " _id integer primary key autoincrement, " +
+                SettingTable.Cols.DATE_FORMAT +
                 ") ");
     }
 

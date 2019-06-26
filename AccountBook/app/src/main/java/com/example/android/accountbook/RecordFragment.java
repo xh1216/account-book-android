@@ -55,7 +55,8 @@ public class RecordFragment extends Fragment {
     }
 
     private void updateUI() {
-        String date = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date());
+        String dateFormat = Setting.get(getActivity()).getDateFormat();
+        String date = new SimpleDateFormat(dateFormat, Locale.getDefault()).format(new Date());
         String dayOfWeek = new SimpleDateFormat("EE", Locale.ENGLISH).format(new Date());
         mDateTextView.setText(date + " (" + dayOfWeek + ") ");
 

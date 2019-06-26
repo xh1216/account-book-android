@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
@@ -20,6 +21,7 @@ public class HistoryFragment extends Fragment {
     private static final String ARG_DATE = "date";
 
     private Date mDate;
+    private TextView mCategoryTextView;
     private TextView mDateTextView;
     private RecyclerView mHistoryRecyclerView;
     private HistoryAdapter mHistoryAdapter;
@@ -49,7 +51,8 @@ public class HistoryFragment extends Fragment {
         mHistoryRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mDateTextView = v.findViewById(R.id.history_date);
 
-        String date = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(mDate);
+        String dateFormat = Setting.get(getActivity()).getDateFormat();
+        String date = new SimpleDateFormat(dateFormat, Locale.getDefault()).format(mDate);
         String dayOfWeek = new SimpleDateFormat("EE", Locale.ENGLISH).format(mDate);
         mDateTextView.setText("History  -  " + date + " (" + dayOfWeek + ") ");
 
@@ -87,21 +90,25 @@ public class HistoryFragment extends Fragment {
 
     private class HistoryHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
+        private ImageView mIconImageView;
         private TextView mCategoryTextView;
         private TextView mAmountTextView;
         private Record mRecord;
 
         public HistoryHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.item_history, parent, false));
-            mAmountTextView = itemView.findViewById(R.id.history_amount);
+            mIconImageView = itemView.findViewById(R.id.history_icon);
             mCategoryTextView = itemView.findViewById(R.id.history_category);
+            mAmountTextView = itemView.findViewById(R.id.history_amount);
             itemView.setOnClickListener(this);
         }
 
         public void bind(Record record) {
             mRecord = record;
-            mAmountTextView.setText(String.valueOf(record.getAmount()));
+            mIconImageView.setImageResource(record.getCategory().getIcon());
             mCategoryTextView.setText(record.getCategory().getName());
+            mAmountTextView.setText(String.valueOf(record.getAmount()));
+            System.out.println("BBBBBBBBBBBBBBBBBBB"+record.getCategory().getName());
         }
 
         @Override

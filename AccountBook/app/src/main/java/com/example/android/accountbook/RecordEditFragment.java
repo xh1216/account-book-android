@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -27,7 +28,10 @@ public class RecordEditFragment extends Fragment {
 
     private static final String ARG_RECORD_ID = "record_id";
     private static final String DIALOG_DATE = "dialog_date";
+    private static final String CATEGORY_ID = "category_id";
+    private static final String IS_INCOME = "is_income";
     private static final int REQUEST_DATE = 0;
+    private static final int REQUEST_CATEGORY = 1;
 
     private Record mRecord;
     private ToggleButtonLayout mToggleButtonLayout;
@@ -82,6 +86,19 @@ public class RecordEditFragment extends Fragment {
 
         mCategoryField = v.findViewById(R.id.category_field);
         mCategoryField.setText(mRecord.getCategory().getName());
+        mCategoryField.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public  void onClick(View v) {
+                FragmentManager manager = getFragmentManager();
+                CategoryDialogFragment dialog = CategoryDialogFragment.newInstance(mRecord.getCategory().getId());
+                dialog.setTargetFragment(RecordEditFragment.this, REQUEST_CATEGORY);
+                Bundle args = new Bundle();
+                args.putInt(IS_INCOME, mRecord.isIncome() ? 1 : 0);
+                args.putSerializable(CATEGORY_ID, mRecord.getCategory().getId());
+                dialog.setArguments(args);
+                dialog.show(manager, CATEGORY_ID);
+            }
+        });
 
         mRemoveButton = v.findViewById(R.id.remove_button);
         mRemoveButton.setOnClickListener(new View.OnClickListener() {
@@ -149,6 +166,11 @@ public class RecordEditFragment extends Fragment {
                     .getSerializableExtra(DatePickerFragment.EXTRA_DATE);
             mRecord.setDate(date);
             updateDate();
+        } else if (requestCode == REQUEST_CATEGORY) {
+            UUID categoryId = (UUID) data.getSerializableExtra(CategoryDialogFragment.EXTRA_CATEGORY_ID);
+            Category category = CategoryList.get(getActivity()).getCategory(categoryId);
+            mRecord.setCategory(category);
+            mCategoryField.setText(mRecord.getCategory().getName());
         }
     }
 
@@ -162,6 +184,7 @@ public class RecordEditFragment extends Fragment {
     }
 
     private void updateDate() {
-        mDateField.setText(new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(mRecord.getDate()));
+        String dateFormat = Setting.get(getActivity()).getDateFormat();
+        mDateField.setText(new SimpleDateFormat(dateFormat, Locale.getDefault()).format(mRecord.getDate()));
     }
 }

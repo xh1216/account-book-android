@@ -5,7 +5,7 @@ import java.util.UUID;
 public class Category {
     private UUID mId;
     private String mName;
-    private String mIcon;
+    private int mIcon;
     private Boolean isIncome;
 
     public Category() {
@@ -15,7 +15,7 @@ public class Category {
     public Category(UUID id) {
         mId = id;
         mName = "";
-        mIcon = "";
+        mIcon = 0;
         isIncome = false;
     }
 
@@ -31,11 +31,11 @@ public class Category {
         mName = name;
     }
 
-    public String getIcon() {
+    public int getIcon() {
         return mIcon;
     }
 
-    public void setIcon(String icon) {
+    public void setIcon(int icon) {
         mIcon = icon;
     }
 

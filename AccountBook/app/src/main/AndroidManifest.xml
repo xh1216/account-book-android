@@ -50,6 +50,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".HistoryActivity" />
         </activity>
+        <activity android:name=".SettingActivity"
+            android:label="Setting" />
+        <activity android:name=".DateFormatEditActivity"
+            android:label="Date Format Setting"
+            android:parentActivityName=".SettingActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".SettingActivity" />
+        </activity>
     </application>
 
 </manifest>

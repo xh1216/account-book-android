@@ -32,9 +32,9 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.navigation_history:
                     fragment = new HistoryListActivity().createFragment();
                     break;
-//                case R.id.navigation_setting:
-//                    mTextMessage.setText(R.string.title_notifications);
-//                    return true;
+                case R.id.navigation_setting:
+                    fragment = new SettingActivity().createFragment();
+                    break;
             }
             return loadFragment(fragment);
         }
@@ -72,24 +72,24 @@ public class MainActivity extends AppCompatActivity {
         return false;
     }
 
-    private void initCategoryData() {
-        String[] expCatName = {"food", "transport", "entertainment"};
-        String[] incomeCatName = {"salary", "pocket money"};
-
-        for (int i = 0; i < expCatName.length; i++) {
-            Category cat = new Category();
-            cat.setName(expCatName[i]);
-            cat.setIcon("exp_cat" + i + ".png");
-            cat.setIncome(false);
-            CategoryList.get(MainActivity.this).addCategory(cat);
-        }
-
-        for (int i = 0; i < incomeCatName.length; i++) {
-            Category cat = new Category();
-            cat.setName(incomeCatName[i]);
-            cat.setIcon("income_cat" + i + ".png");
-            cat.setIncome(true);
-            CategoryList.get(MainActivity.this).addCategory(cat);
-        }
-    }
+//    private void initCategoryData() {
+//        String[] expCatName = {"food", "transport", "entertainment"};
+//        String[] incomeCatName = {"salary", "pocket money"};
+//
+//        for (int i = 0; i < expCatName.length; i++) {
+//            Category cat = new Category();
+//            cat.setName(expCatName[i]);
+//            cat.setIcon("exp_cat" + i + ".png");
+//            cat.setIncome(false);
+//            CategoryList.get(MainActivity.this).addCategory(cat);
+//        }
+//
+//        for (int i = 0; i < incomeCatName.length; i++) {
+//            Category cat = new Category();
+//            cat.setName(incomeCatName[i]);
+//            cat.setIcon("income_cat" + i + ".png");
+//            cat.setIncome(true);
+//            CategoryList.get(MainActivity.this).addCategory(cat);
+//        }
+//    }
 }

@@ -53,6 +53,30 @@ public class CategoryList {
         CategoryCursorWrapper cursor = queryCategories(null, null);
 
         try {
+            if (cursor.getCount() == 0) {
+
+                String[] expCatName = {"Food", "Transport", "Entertainment"};
+                int[] expIcon = {R.drawable.exp_cat0, R.drawable.exp_cat1, R.drawable.exp_cat2};
+                String[] incomeCatName = {"Salary", "Pocket money"};
+                int[] incomeIcon = {R.drawable.income_cat0, R.drawable.income_cat1};
+                for (int i = 0; i < expCatName.length; i++) {
+                    Category cat = new Category();
+                    cat.setName(expCatName[i]);
+                    cat.setIcon(expIcon[i]);
+                    cat.setIncome(false);
+                    addCategory(cat);
+                    categories.add(cat);
+                }
+                for (int i = 0; i < incomeCatName.length; i++) {
+                    Category cat = new Category();
+                    cat.setName(incomeCatName[i]);
+                    cat.setIcon(incomeIcon[i]);
+                    cat.setIncome(true);
+                    addCategory(cat);
+                    categories.add(cat);
+                }
+                return categories;
+            }
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
                 categories.add(cursor.getCategory());
@@ -61,7 +85,6 @@ public class CategoryList {
         } finally {
             cursor.close();
         }
-
         return categories;
     }
 
@@ -81,6 +104,72 @@ public class CategoryList {
         } finally {
             cursor.close();
         }
+    }
+
+    public List<Category> getIncomeCategories() {
+        List<Category> categories = new ArrayList<>();
+
+        CategoryCursorWrapper cursor = queryCategories(
+                CategoryTable.Cols.IS_INCOME + " = ?",
+                new String[] { String.valueOf(1) }
+        );
+
+        try {
+            if (cursor.getCount() == 0) {
+                String[] incomeCatName = {"Salary", "Pocket money"};
+                int[] incomeIcon = {R.drawable.income_cat0, R.drawable.income_cat1};
+                for (int i = 0; i < incomeCatName.length; i++) {
+                    Category cat = new Category();
+                    cat.setName(incomeCatName[i]);
+                    cat.setIcon(incomeIcon[i]);
+                    cat.setIncome(true);
+                    addCategory(cat);
+                    categories.add(cat);
+                }
+                return categories;
+            }
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                categories.add(cursor.getCategory());
+                cursor.moveToNext();
+            }
+        } finally {
+            cursor.close();
+        }
+        return categories;
+    }
+
+    public List<Category> getExpenseCategories() {
+        List<Category> categories = new ArrayList<>();
+
+        CategoryCursorWrapper cursor = queryCategories(
+                CategoryTable.Cols.IS_INCOME + " = ?",
+                new String[] { String.valueOf(0) }
+        );
+
+        try {
+            if (cursor.getCount() == 0) {
+                String[] expCatName = {"Food", "Transport", "Entertainment"};
+                int[] expIcon = {R.drawable.exp_cat0, R.drawable.exp_cat1, R.drawable.exp_cat2};
+                for (int i = 0; i < expCatName.length; i++) {
+                    Category cat = new Category();
+                    cat.setName(expCatName[i]);
+                    cat.setIcon(expIcon[i]);
+                    cat.setIncome(false);
+                    addCategory(cat);
+                    categories.add(cat);
+                }
+                return categories;
+            }
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                categories.add(cursor.getCategory());
+                cursor.moveToNext();
+            }
+        } finally {
+            cursor.close();
+        }
+        return categories;
     }
 
     public void updateCategory(Category category) {

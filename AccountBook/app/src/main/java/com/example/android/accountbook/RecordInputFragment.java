@@ -23,9 +23,11 @@ import java.util.Locale;
 import java.util.UUID;
 
 public class RecordInputFragment extends Fragment {
+
     private static final String ARG_RECORD_ID = "record_id";
     private static final String DIALOG_DATE = "dialog_date";
     private static final String CATEGORY_ID = "category_id";
+    private static final String IS_INCOME = "is_income";
     private static final int REQUEST_DATE = 0;
     private static final int REQUEST_CATEGORY = 1;
 
@@ -89,6 +91,10 @@ public class RecordInputFragment extends Fragment {
                 FragmentManager manager = getFragmentManager();
                 CategoryDialogFragment dialog = CategoryDialogFragment.newInstance(mRecord.getCategory().getId());
                 dialog.setTargetFragment(RecordInputFragment.this, REQUEST_CATEGORY);
+                Bundle args = new Bundle();
+                args.putInt(IS_INCOME, mRecord.isIncome() ? 1 : 0);
+                args.putSerializable(CATEGORY_ID, mRecord.getCategory().getId());
+                dialog.setArguments(args);
                 dialog.show(manager, CATEGORY_ID);
             }
         });
@@ -140,6 +146,11 @@ public class RecordInputFragment extends Fragment {
                     .getSerializableExtra(DatePickerFragment.EXTRA_DATE);
             mRecord.setDate(date);
             updateDate();
+        } else if (requestCode == REQUEST_CATEGORY) {
+            UUID categoryId = (UUID) data.getSerializableExtra(CategoryDialogFragment.EXTRA_CATEGORY_ID);
+            Category category = CategoryList.get(getActivity()).getCategory(categoryId);
+            mRecord.setCategory(category);
+            mCategoryField.setText(mRecord.getCategory().getName());
         }
     }
 
@@ -153,6 +164,7 @@ public class RecordInputFragment extends Fragment {
     }
 
     private void updateDate() {
-        mDateField.setText(new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(mRecord.getDate()));
+        String dateFormat = Setting.get(getActivity()).getDateFormat();
+        mDateField.setText(new SimpleDateFormat(dateFormat, Locale.getDefault()).format(mRecord.getDate()));
     }
 }

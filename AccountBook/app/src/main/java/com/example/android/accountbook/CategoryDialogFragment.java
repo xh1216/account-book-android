@@ -1,8 +1,10 @@
 package com.example.android.accountbook;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -15,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -24,6 +27,7 @@ public class CategoryDialogFragment extends DialogFragment {
     public static final String EXTRA_CATEGORY_ID =
             "com.bignerdranch.android.criminalintent.category_id";
     private static final String ARG_CATEGORY_ID = "category_id";
+    private static final String ARG_IS_INCOME = "is_income";
 
     private RecyclerView mCatRecyclerView;
     private GridLayoutManager mRecyclerViewLayoutManager;
@@ -41,55 +45,39 @@ public class CategoryDialogFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Category mCategory = CategoryList.get(getActivity()).getCategory((UUID) getArguments().getSerializable(ARG_CATEGORY_ID));
+        int a = getArguments().getInt(ARG_IS_INCOME);
+        Boolean isIncome = (1 == getArguments().getInt(ARG_IS_INCOME));
 
         View view =  LayoutInflater.from(getActivity()).inflate(R.layout.dialog_category, null);
 
         mCatRecyclerView = view.findViewById(R.id.category_recycler_view);
-
-        mRecyclerViewLayoutManager = new GridLayoutManager(getActivity(), 2);
-
+        mRecyclerViewLayoutManager = new GridLayoutManager(getActivity(), 3);
         mCatRecyclerView.setLayoutManager(mRecyclerViewLayoutManager);
 
         CategoryList catList = CategoryList.get(getActivity());
-        List<Category> categories = catList.getCategories();
-        System.out.println(categories);
+        List<Category> categories = null;
+        if (isIncome) {
+            categories = catList.getIncomeCategories();
+        } else {
+            categories = catList.getExpenseCategories(); //get exp categories
+        }
         mCategoryDialogAdapter = new CategoryDialogAdapter(categories);
         mCatRecyclerView.setAdapter(mCategoryDialogAdapter);
         return new AlertDialog.Builder(getActivity())
                 .setView(mCatRecyclerView)
-                .setPositiveButton(android.R.string.ok,
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                            }
-                        })
                 .create();
     }
-//
-//    @Override
-//    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-//        super.onViewCreated(view, savedInstanceState);
-//        getDialog().getWindow().setGravity(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM);
-//
-//    }
-//    @Override
-//    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-//
-//        View view =  inflater.inflate(R.layout.dialog_category, container, false);
-//
-//        return view;
-//    }
 
     private class CategoryDialogHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private TextView mNameTextView;
-        private TextView mIconTextView; //imageview
+        private ImageView mIconImageView;
         private Category mCategory;
 
         public CategoryDialogHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.dialog_item_category, parent, false));
             mNameTextView = itemView.findViewById(R.id.cat_name);
-            mIconTextView = itemView.findViewById(R.id.cat_icon);
+            mIconImageView = itemView.findViewById(R.id.cat_icon);
             itemView.setOnClickListener(this);
         }
 
@@ -97,15 +85,13 @@ public class CategoryDialogFragment extends DialogFragment {
             mCategory = category;
 
             mNameTextView.setText(mCategory.getName());
-            mIconTextView.setText(mCategory.getIcon());
+            mIconImageView.setImageResource(mCategory.getIcon());
         }
 
         @Override
         public void onClick(View view) {
-            //return category id to previous fragment
-//            Intent intent = new Intent(getActivity(), HistoryActivity.class);
-//            intent.putExtra(EXTRA_DATE, mDate.getTime());
-//            startActivity(intent);
+            sendResult(Activity.RESULT_OK, mCategory);
+            dismiss();
         }
     }
 
@@ -134,5 +120,22 @@ public class CategoryDialogFragment extends DialogFragment {
         public int getItemCount() {
             return mCategories.size();
         }
+    }
+
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//        getDialog().getWindow().setGravity(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM);
+//    }
+
+    private void sendResult(int resultCode, Category category) {
+        if (getTargetFragment() == null) {
+            return;
+        }
+        Intent intent = new Intent();
+        intent.putExtra(EXTRA_CATEGORY_ID, category.getId());
+
+        getTargetFragment()
+                .onActivityResult(getTargetRequestCode(), resultCode, intent);
     }
 }

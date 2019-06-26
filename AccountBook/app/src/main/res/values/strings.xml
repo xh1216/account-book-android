@@ -3,13 +3,12 @@
     <string name="title_record">Record</string>
     <string name="title_history">History</string>
     <string name="title_setting">Setting</string>
-    <string name="income_label">income\t\t\t%1$d</string>
-    <string name="expenses_label">expenses\t\t\t%1$d</string>
-    <string name="total_label">this month total\t\t\t\t\t\t\t%1$d</string>
+    <string name="income_label">Income\t\t\t%1$d</string>
+    <string name="expenses_label">Expenses\t\t\t%1$d</string>
+    <string name="total_label">This month total\t\t\t\t\t\t\t%1$d</string>
     <string name="input_date_label">Date</string>
     <string name="input_amount_label">Amount</string>
     <string name="input_category_label">Category</string>
     <string name="input_memo_label">Memo</string>
-    <string name="date_picker_title">Date:</string>
     <string name="remove_toast">The record has been removed.</string>
 </resources>

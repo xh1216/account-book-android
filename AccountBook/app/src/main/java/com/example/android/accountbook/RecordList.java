@@ -56,13 +56,16 @@ public class RecordList {
         try {
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
-                records.add(cursor.getRecord());
+                //records.add(cursor.getRecord());
+                Record record = cursor.getRecord();
+                String categoryId = cursor.getString(4);
+                setCategory(record, categoryId);
+                records.add(record);
                 cursor.moveToNext();
             }
         } finally {
             cursor.close();
         }
-
         return records;
     }
 
@@ -76,7 +79,10 @@ public class RecordList {
         try {
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
-                records.add(cursor.getRecord());
+                Record record = cursor.getRecord();
+                String categoryId = cursor.getString(4);
+                setCategory(record, categoryId);
+                records.add(record);
                 cursor.moveToNext();
             }
         } finally {
@@ -95,7 +101,10 @@ public class RecordList {
         try {
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
-                records.add(cursor.getRecord());
+                Record record = cursor.getRecord();
+                String categoryId = cursor.getString(4);
+                setCategory(record, categoryId);
+                records.add(record);
                 cursor.moveToNext();
             }
         } finally {
@@ -117,14 +126,8 @@ public class RecordList {
 
             cursor.moveToFirst();
             Record record =  cursor.getRecord();
-
             String categoryId = cursor.getString(4);
-            Category category = CategoryList.get(mContext).getCategory(UUID.fromString(categoryId));
-            if (category != null) {
-                record.setCategory(category);
-            }
-            System.out.println(record.getCategory().getName());
-
+            setCategory(record, categoryId);
             return record;
         } finally {
             cursor.close();
@@ -170,5 +173,14 @@ public class RecordList {
         values.put(RecordTable.Cols.MEMO, record.getMemo());
         values.put(RecordTable.Cols.IS_INCOME, record.isIncome() ? 1 : 0);
         return values;
+    }
+
+    private void setCategory(Record record, String categoryId) {
+        Category category = CategoryList.get(mContext).getCategory(UUID.fromString(categoryId));
+        System.out.println(category + categoryId);
+        if (category != null) {
+            record.setCategory(category);
+            System.out.println("AAAAAAAAAA");
+        }
     }
 }

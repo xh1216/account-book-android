@@ -72,6 +72,12 @@ public class RecordFragment extends Fragment {
         }
         mIncomeTextView.setText(getString(R.string.income_label, income));
         mExpensesTextView.setText(getString(R.string.expenses_label, exp));
-        mTotalTextView.setText(getString(R.string.total_label, income - exp));
+        String amountText;
+        if (income - exp < 0) {
+            amountText = "- " + getString(R.string.amount_label, -(income - exp));
+        } else {
+            amountText = getString(R.string.amount_label, income - exp);
+        }
+        mTotalTextView.setText("This month total       " + amountText);
     }
 }

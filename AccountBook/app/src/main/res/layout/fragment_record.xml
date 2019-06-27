@@ -51,9 +51,13 @@
 
     <Button
         android:id="@+id/add_record_button"
+        style="@style/TextAppearance.AppCompat.Body2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="120dp"
+        android:textSize="18sp"
+        android:textColor="@color/colorPrimaryDark"
+        android:background="@drawable/rounded_button"
         android:text="enter record!" />
 </LinearLayout>

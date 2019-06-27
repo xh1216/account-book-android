@@ -51,7 +51,7 @@ public class CategoryDialogFragment extends DialogFragment {
         View view =  LayoutInflater.from(getActivity()).inflate(R.layout.dialog_category, null);
 
         mCatRecyclerView = view.findViewById(R.id.category_recycler_view);
-        mRecyclerViewLayoutManager = new GridLayoutManager(getActivity(), 3);
+        mRecyclerViewLayoutManager = new GridLayoutManager(getActivity(), 2);
         mCatRecyclerView.setLayoutManager(mRecyclerViewLayoutManager);
 
         CategoryList catList = CategoryList.get(getActivity());

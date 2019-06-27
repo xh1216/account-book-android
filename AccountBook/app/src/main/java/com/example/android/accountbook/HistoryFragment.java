@@ -107,8 +107,11 @@ public class HistoryFragment extends Fragment {
             mRecord = record;
             mIconImageView.setImageResource(record.getCategory().getIcon());
             mCategoryTextView.setText(record.getCategory().getName());
-            mAmountTextView.setText(String.valueOf(record.getAmount()));
-            System.out.println("BBBBBBBBBBBBBBBBBBB"+record.getCategory().getName());
+            String amountText = getString(R.string.amount_label, record.getAmount());
+            if (! record.isIncome()) {
+                amountText = "- " + amountText;
+            }
+            mAmountTextView.setText(amountText);
         }
 
         @Override

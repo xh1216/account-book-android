@@ -3,9 +3,9 @@
     <string name="title_record">Record</string>
     <string name="title_history">History</string>
     <string name="title_setting">Setting</string>
-    <string name="income_label">Income\t\t\t%1$d</string>
-    <string name="expenses_label">Expenses\t\t\t%1$d</string>
-    <string name="total_label">This month total\t\t\t\t\t\t\t%1$d</string>
+    <string name="income_label">Income\t\t\t$ %1$d</string>
+    <string name="expenses_label">Expenses\t\t\t$ %1$d</string>
+    <string name="amount_label">$ %1$d</string>
     <string name="input_date_label">Date</string>
     <string name="input_amount_label">Amount</string>
     <string name="input_category_label">Category</string>

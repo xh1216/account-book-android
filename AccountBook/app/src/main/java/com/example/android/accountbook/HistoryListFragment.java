@@ -86,7 +86,13 @@ public class HistoryListFragment extends Fragment {
                     totalAmount -= rec.getAmount();
                 }
             }
-            mAmountTextView.setText(String.valueOf(totalAmount));
+            String amountText;
+            if (totalAmount < 0) {
+                amountText = "- " + getString(R.string.amount_label, -(totalAmount));
+            } else {
+                amountText = getString(R.string.amount_label, totalAmount);
+            }
+            mAmountTextView.setText(amountText);
             String dateFormat = Setting.get(getActivity()).getDateFormat();
             mDateTextView.setText(new SimpleDateFormat(dateFormat, Locale.getDefault()).format(date));
         }

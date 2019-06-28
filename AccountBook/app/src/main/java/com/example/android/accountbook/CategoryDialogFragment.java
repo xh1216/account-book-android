@@ -3,20 +3,14 @@ package com.example.android.accountbook;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -25,7 +19,7 @@ import java.util.UUID;
 
 public class CategoryDialogFragment extends DialogFragment {
     public static final String EXTRA_CATEGORY_ID =
-            "com.bignerdranch.android.criminalintent.category_id";
+            "com.example.android.accountbook.category_id";
     private static final String ARG_CATEGORY_ID = "category_id";
     private static final String ARG_IS_INCOME = "is_income";
 
@@ -55,11 +49,11 @@ public class CategoryDialogFragment extends DialogFragment {
         mCatRecyclerView.setLayoutManager(mRecyclerViewLayoutManager);
 
         CategoryList catList = CategoryList.get(getActivity());
-        List<Category> categories = null;
+        List<Category> categories;
         if (isIncome) {
             categories = catList.getIncomeCategories();
         } else {
-            categories = catList.getExpenseCategories(); //get exp categories
+            categories = catList.getExpenseCategories();
         }
         mCategoryDialogAdapter = new CategoryDialogAdapter(categories);
         mCatRecyclerView.setAdapter(mCategoryDialogAdapter);
@@ -122,12 +116,6 @@ public class CategoryDialogFragment extends DialogFragment {
         }
     }
 
-//    @Override
-//    public void onResume() {
-//        super.onResume();
-//        getDialog().getWindow().setGravity(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM);
-//    }
-
     private void sendResult(int resultCode, Category category) {
         if (getTargetFragment() == null) {
             return;
@@ -135,7 +123,6 @@ public class CategoryDialogFragment extends DialogFragment {
         Intent intent = new Intent();
         intent.putExtra(EXTRA_CATEGORY_ID, category.getId());
 
-        getTargetFragment()
-                .onActivityResult(getTargetRequestCode(), resultCode, intent);
+        getTargetFragment().onActivityResult(getTargetRequestCode(), resultCode, intent);
     }
 }

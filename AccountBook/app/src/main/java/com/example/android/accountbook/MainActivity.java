@@ -1,6 +1,5 @@
 package com.example.android.accountbook;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
@@ -8,15 +7,10 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.annotation.NonNull;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.TextView;
-
-import java.util.Arrays;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    BottomNavigationView mBottomNavigationView;
+    private BottomNavigationView mBottomNavigationView;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -47,8 +41,6 @@ public class MainActivity extends AppCompatActivity {
         mBottomNavigationView = findViewById(R.id.bottom_nav_view);
         mBottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-//        initCategoryData();
-
         FragmentManager fm = getSupportFragmentManager();   //ensure stay in same fragment after rotate
         Fragment fragment = fm.findFragmentById(R.id.main_container);
 
@@ -71,25 +63,4 @@ public class MainActivity extends AppCompatActivity {
         }
         return false;
     }
-
-//    private void initCategoryData() {
-//        String[] expCatName = {"food", "transport", "entertainment"};
-//        String[] incomeCatName = {"salary", "pocket money"};
-//
-//        for (int i = 0; i < expCatName.length; i++) {
-//            Category cat = new Category();
-//            cat.setName(expCatName[i]);
-//            cat.setIcon("exp_cat" + i + ".png");
-//            cat.setIncome(false);
-//            CategoryList.get(MainActivity.this).addCategory(cat);
-//        }
-//
-//        for (int i = 0; i < incomeCatName.length; i++) {
-//            Category cat = new Category();
-//            cat.setName(incomeCatName[i]);
-//            cat.setIcon("income_cat" + i + ".png");
-//            cat.setIncome(true);
-//            CategoryList.get(MainActivity.this).addCategory(cat);
-//        }
-//    }
 }

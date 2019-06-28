@@ -11,8 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -22,8 +20,6 @@ import java.util.List;
 import java.util.Locale;
 
 public class HistoryListFragment extends Fragment {
-
-    private static final String EXTRA_DATE = "com.example.android.accountbook.date";
 
     private TextView mEmptyRecordText;
     private RecyclerView mHistoryListRecyclerView;
@@ -99,8 +95,7 @@ public class HistoryListFragment extends Fragment {
 
         @Override
         public void onClick(View view) {
-            Intent intent = new Intent(getActivity(), HistoryActivity.class);
-            intent.putExtra(EXTRA_DATE, mDate.getTime());
+            Intent intent = HistoryActivity.newIntent(getActivity(), mDate.getTime());
             startActivity(intent);
         }
     }

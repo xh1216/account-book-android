@@ -16,9 +16,6 @@ import java.util.Locale;
 
 public class RecordFragment extends Fragment {
 
-    private static final String EXTRA_RECORD_ID =
-            "com.example.android.accountbook.record_id";
-
     private TextView mDateTextView;
     private TextView mIncomeTextView;
     private TextView mExpensesTextView;
@@ -40,7 +37,6 @@ public class RecordFragment extends Fragment {
                 Record record = new Record();
                 RecordList.get(getActivity()).addRecord(record);
                 Intent intent = RecordInputActivity.newIntent(getActivity(), record.getId());
-                //intent.putExtra(EXTRA_RECORD_ID, record.getId());
                 startActivity(intent);
             }
         });

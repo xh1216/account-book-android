@@ -8,7 +8,7 @@ import java.util.UUID;
 
 public class RecordInputActivity extends SingleFragmentActivity {
     public static final String EXTRA_RECORD_ID =
-            "com.bignerdranch.android.criminalintent.record_id";
+            "com.example.android.accountbook.record_id";
 
     public static Intent newIntent(Context packageContext, UUID recordId) {
         Intent intent = new Intent(packageContext, RecordInputActivity.class);

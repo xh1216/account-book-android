@@ -7,7 +7,6 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.example.android.accountbook.database.CategoryCursorWrapper;
 import com.example.android.accountbook.database.DatabaseHelper;
-import com.example.android.accountbook.database.DbSchema;
 import com.example.android.accountbook.database.DbSchema.CategoryTable;
 
 import java.util.ArrayList;

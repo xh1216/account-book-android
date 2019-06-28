@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.android.accountbook.database.DatabaseHelper;
-import com.example.android.accountbook.database.DbSchema;
 import com.example.android.accountbook.database.DbSchema.SettingTable;
 import com.example.android.accountbook.database.SettingCursorWrapper;
 

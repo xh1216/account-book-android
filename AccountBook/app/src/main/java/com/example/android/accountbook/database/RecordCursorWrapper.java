@@ -1,16 +1,12 @@
 package com.example.android.accountbook.database;
 
-import android.content.Context;
 import android.database.Cursor;
 import android.database.CursorWrapper;
-import com.example.android.accountbook.CategoryList;
-import com.example.android.accountbook.MainActivity;
 import com.example.android.accountbook.Record;
 import com.example.android.accountbook.database.DbSchema.RecordTable;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Locale;
 import java.util.UUID;
 

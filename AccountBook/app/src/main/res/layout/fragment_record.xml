@@ -1,63 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@drawable/rounded_edges">
-    <TextView
-        android:id="@+id/date_text"
-        style="@style/TextAppearance.AppCompat.Body2"
-        android:textSize="18sp"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:gravity="center" />
-    <TextView
-        android:id="@+id/total_text"
-        style="@style/TextAppearance.AppCompat.Body2"
-        android:textSize="20sp"
-        android:layout_width="300dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="30dp"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center"
-        android:background="@drawable/rounded_edges"
-        android:backgroundTint="#B9DCA8"/>
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/date_text"
+            style="@style/TextAppearance.AppCompat.Body2"
+            android:textSize="18sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center" />
+        <TextView
+            android:id="@+id/total_text"
+            style="@style/TextAppearance.AppCompat.Body2"
+            android:textSize="20sp"
+            android:layout_width="300dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="30dp"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:background="@drawable/rounded_edges"
+            android:backgroundTint="#B9DCA8"/>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:orientation="horizontal"
-        android:layout_marginTop="25dp">
-        <TextView
-            android:id="@+id/income_text"
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="horizontal"
+            android:layout_marginTop="25dp">
+            <TextView
+                android:id="@+id/income_text"
+                style="@style/TextAppearance.AppCompat.Body2"
+                android:layout_width="140dp"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:background="@drawable/rounded_edges"
+                android:backgroundTint="#B3E4EF"/>
+            <TextView
+                android:id="@+id/expenses_text"
+                style="@style/TextAppearance.AppCompat.Body2"
+                android:layout_width="140dp"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:background="@drawable/rounded_edges"
+                android:backgroundTint="#FFB5B5"
+                android:layout_marginStart="20dp" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/add_record_button"
             style="@style/TextAppearance.AppCompat.Body2"
-            android:layout_width="140dp"
-            android:layout_height="40dp"
-            android:gravity="center"
-            android:background="@drawable/rounded_edges"
-            android:backgroundTint="#B3E4EF"/>
-        <TextView
-            android:id="@+id/expenses_text"
-            style="@style/TextAppearance.AppCompat.Body2"
-            android:layout_width="140dp"
-            android:layout_height="40dp"
-            android:gravity="center"
-            android:background="@drawable/rounded_edges"
-            android:backgroundTint="#FFB5B5"
-            android:layout_marginStart="20dp" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="120dp"
+            android:layout_marginBottom="60dp"
+            android:textSize="18sp"
+            android:textColor="@color/colorPrimaryDark"
+            android:background="@drawable/rounded_button"
+            android:text="enter record!" />
     </LinearLayout>
-
-    <Button
-        android:id="@+id/add_record_button"
-        style="@style/TextAppearance.AppCompat.Body2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="120dp"
-        android:textSize="18sp"
-        android:textColor="@color/colorPrimaryDark"
-        android:background="@drawable/rounded_button"
-        android:text="enter record!" />
-</LinearLayout>
+</ScrollView>

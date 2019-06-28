@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.android.accountbook.database.DatabaseHelper;
-import com.example.android.accountbook.database.DbSchema;
 import com.example.android.accountbook.database.RecordCursorWrapper;
 import com.example.android.accountbook.database.DbSchema.RecordTable;
 
@@ -38,7 +37,6 @@ public class RecordList {
 
     public void addRecord(Record r) {
         ContentValues values = getContentValues(r);
-
         mDatabase.insert(RecordTable.NAME, null, values);
     }
 
@@ -52,11 +50,9 @@ public class RecordList {
         List<Record> records = new ArrayList<>();
 
         RecordCursorWrapper cursor = queryRecords(null, null);
-
         try {
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
-                //records.add(cursor.getRecord());
                 Record record = cursor.getRecord();
                 String categoryId = cursor.getString(4);
                 setCategory(record, categoryId);
@@ -75,7 +71,6 @@ public class RecordList {
         RecordCursorWrapper cursor = queryRecords(
                 "strftime('%m'," + RecordTable.Cols.DATE + ") = strftime('%m', 'now')",
                 null);
-
         try {
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
@@ -93,11 +88,11 @@ public class RecordList {
 
     public List<Record> getRecordsByDate(Date date) {
         List<Record> records = new ArrayList<>();
+
         String dateString = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(date);
         RecordCursorWrapper cursor = queryRecords(
                 RecordTable.Cols.DATE + " = ?",
                 new String[] { dateString });
-
         try {
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
@@ -118,12 +113,10 @@ public class RecordList {
                 RecordTable.Cols.UUID + " = ?",
                 new String[] { id.toString() }
         );
-
         try {
             if (cursor.getCount() == 0) {
                 return null;
             }
-
             cursor.moveToFirst();
             Record record =  cursor.getRecord();
             String categoryId = cursor.getString(4);
@@ -144,22 +137,15 @@ public class RecordList {
     }
 
     private RecordCursorWrapper queryRecords(String whereClause, String[] whereArgs) {
-//        String[] columns = {"records.uuid", "date", "amount", "category_id", "memo", "categories.cat_name", "categories.icon"};
         Cursor cursor = mDatabase.query(
                 RecordTable.NAME,
-                null, // columns - null selects all columns
+                null,
                 whereClause,
                 whereArgs,
-                null, // groupBy
-                null, // having
-                null  // orderBy
+                null,
+                null,
+                null
         );
-//        String query = "SELECT * FROM records INNER JOIN categories ON records.category_id = categories.uuid";
-//        if (whereClause != null) {
-//            query = query + " WHERE records." + whereClause;
-//        }
-//
-//        Cursor cursor = mDatabase.rawQuery(query, whereArgs);
 
         return new RecordCursorWrapper(cursor);
     }
@@ -180,7 +166,6 @@ public class RecordList {
         System.out.println(category + categoryId);
         if (category != null) {
             record.setCategory(category);
-            System.out.println("AAAAAAAAAA");
         }
     }
 }

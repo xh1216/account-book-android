@@ -21,7 +21,6 @@ public class HistoryFragment extends Fragment {
     private static final String ARG_DATE = "date";
 
     private Date mDate;
-    private TextView mCategoryTextView;
     private TextView mDateTextView;
     private RecyclerView mHistoryRecyclerView;
     private HistoryAdapter mHistoryAdapter;
